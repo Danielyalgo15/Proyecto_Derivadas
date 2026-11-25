@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"path": "/home/usuario/Metodos Numericos"
+		},
+		{
+			"path": "../../.."
+		}
+	],
+	"settings": {
+		"python-envs.defaultEnvManager": "ms-python.python:system"
+	}
+}
