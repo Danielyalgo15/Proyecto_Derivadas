@@ -1,102 +1,46 @@
-"""
-Métodos numéricos para aproximar derivadas.
 
-Incluye diferencias hacia adelante, hacia atrás, centradas,
-la fórmula de cinco puntos y la extrapolación de Richardson.
+"""
+Metodos numericos para aproximar la primera derivada.
 """
 
 
-def diferencia_adelante(f, t, h):
-    """
-    Aproxima la primera derivada mediante diferencias hacia adelante.
-
-    Parámetros:
-        f: función que se desea derivar.
-        t: punto donde se calcula la derivada.
-        h: tamaño del paso.
-
-    Retorna:
-        Valor aproximado de la primera derivada.
-
-    Error de truncamiento: O(h).
-    """
-    return (f(t + h) - f(t)) / h
+def diferencia_adelante(posiciones, i, h):
+    return (posiciones[i + 1] - posiciones[i]) / h
 
 
-def diferencia_atras(f, t, h):
-    """
-    Aproxima la primera derivada mediante diferencias hacia atrás.
-
-    Parámetros:
-        f: función que se desea derivar.
-        t: punto donde se calcula la derivada.
-        h: tamaño del paso.
-
-    Retorna:
-        Valor aproximado de la primera derivada.
-
-    Error de truncamiento: O(h).
-    """
-    return (f(t) - f(t - h)) / h
+def diferencia_atras(posiciones, i, h):
+    return (posiciones[i] - posiciones[i - 1]) / h
 
 
-def diferencia_centrada(f, t, h):
-    """
-    Aproxima la primera derivada mediante diferencias centradas.
-
-    Parámetros:
-        f: función que se desea derivar.
-        t: punto donde se calcula la derivada.
-        h: tamaño del paso.
-
-    Retorna:
-        Valor aproximado de la primera derivada.
-
-    Error de truncamiento: O(h²).
-    """
-    return (f(t + h) - f(t - h)) / (2 * h)
+def diferencia_centrada(posiciones, i, h):
+    return (posiciones[i + 1] - posiciones[i - 1]) / (2 * h)
 
 
-def cinco_puntos(f, t, h):
-    """
-    Aproxima la primera derivada mediante la fórmula centrada
-    de cinco puntos.
-
-    Parámetros:
-        f: función que se desea derivar.
-        t: punto donde se calcula la derivada.
-        h: tamaño del paso.
-
-    Retorna:
-        Valor aproximado de la primera derivada.
-
-    Error de truncamiento: O(h⁴).
-    """
+def cinco_puntos(posiciones, i, h):
     return (
-        f(t - 2*h)
-        - 8*f(t - h)
-        + 8*f(t + h)
-        - f(t + 2*h)
+        posiciones[i - 2]
+        - 8 * posiciones[i - 1]
+        + 8 * posiciones[i + 1]
+        - posiciones[i + 2]
     ) / (12 * h)
 
 
-def richardson(f, t, h):
-    """
-    Mejora la aproximación de la derivada mediante extrapolación
-    de Richardson, utilizando diferencias centradas con pasos
-    h y h/2.
+def richardson(posiciones, i, h):
+    d_h = diferencia_centrada(posiciones, i, h)
 
-    Parámetros:
-        f: función que se desea derivar.
-        t: punto donde se calcula la derivada.
-        h: tamaño inicial del paso.
+    d_2h = (
+        posiciones[i + 2] - posiciones[i - 2]
+    ) / (4 * h)
 
-    Retorna:
-        Aproximación mejorada de la primera derivada.
-    """
-    d1 = diferencia_centrada(f, t, h)
-    d2 = diferencia_centrada(f, t, h/2)
+    return (4 * d_h - d_2h) / 3
 
-    resultado = (4*d2 - d1) / 3
 
-    return resultado
+def calcular_metodos(posiciones, i, h):
+    return [
+        diferencia_adelante(posiciones, i, h),
+        diferencia_atras(posiciones, i, h),
+        diferencia_centrada(posiciones, i, h),
+        cinco_puntos(posiciones, i, h),
+        richardson(posiciones, i, h)
+    ]
+
