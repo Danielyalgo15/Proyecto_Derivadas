@@ -1,51 +1,64 @@
-# Simulador de Movimiento de un Vehículo
+# Análisis de Velocidad de un Vehículo mediante Diferenciación Numérica
 
 ## Descripción del proyecto
 
-Este proyecto consiste en el desarrollo de un simulador de movimiento de un vehículo utilizando Python y métodos numéricos.
+Este proyecto consiste en el desarrollo de un programa en Python para analizar el movimiento de un vehículo mediante métodos de diferenciación numérica.
 
-El programa permite calcular la velocidad mediante diferentes métodos de diferenciación numérica y resolver una ecuación diferencial utilizando los métodos de Euler y Runge-Kutta de cuarto orden (RK4).
+El programa permite ingresar manualmente mediciones de tiempo y posición, con las cuales aproxima la velocidad del vehículo utilizando cinco métodos numéricos.
 
-También genera tablas comparativas, calcula errores y produce gráficas para analizar los resultados.
+Además, genera gráficas que permiten visualizar el comportamiento de la posición y la velocidad, así como comparar los resultados obtenidos por cada método.
 
 ## Modelo matemático
 
-La función de posición utilizada es:
+El objetivo principal es aproximar la primera derivada de la posición respecto al tiempo:
 
 \[
-x(t)=x_0+v_0t+\frac{a_0}{2}t^2+\frac{j}{6}t^3
+v(t)=\frac{dx(t)}{dt}
 \]
 
 Donde:
-- \(x_0\): posición inicial.
-- \(v_0\): velocidad inicial.
-- \(a_0\): aceleración inicial.
-- \(j\): variación de la aceleración.
+
+- \(v(t)\): velocidad del vehículo.
+- \(x(t)\): posición del vehículo.
 - \(t\): tiempo transcurrido.
 
-## Métodos implementados
+Para realizar los cálculos, el programa utiliza mediciones discretas de posición y tiempo ingresadas por el usuario.
 
-### Diferenciación numérica
-- Diferencia hacia adelante.
-- Diferencia hacia atrás.
-- Diferencia centrada.
-- Método de cinco puntos.
-- Extrapolación de Richardson.
+## Métodos numéricos implementados
 
-### Resolución de ecuaciones diferenciales
-- Método de Euler.
-- Método de Runge-Kutta de cuarto orden (RK4).
+Se implementan cinco métodos para aproximar la primera derivada:
+
+1. Diferencias hacia adelante.
+2. Diferencias hacia atrás.
+3. Diferencias centradas.
+4. Fórmula de cinco puntos.
+5. Extrapolación de Richardson.
+
+Estos métodos permiten comparar distintas aproximaciones de la velocidad en un mismo instante.
+
+## Funcionamiento del programa
+
+El programa sigue el siguiente procedimiento:
+
+1. Solicita la cantidad de mediciones que se desean ingresar.
+2. Recibe los valores de tiempo (segundos) y posición (metros).
+3. Comprueba que los tiempos sean crecientes y tengan intervalos uniformes.
+4. Permite seleccionar el instante en el que se calculará la velocidad.
+5. Aplica los cinco métodos de diferenciación numérica.
+6. Muestra los resultados obtenidos.
+7. Genera automáticamente tres gráficas.
 
 ## Estructura del proyecto
 
-| Archivo | Descripción |
+| Archivo o carpeta | Descripción |
 |---|---|
-| `main.py` | Ejecuta el programa principal. |
-| `funciones.py` | Contiene las funciones matemáticas del movimiento. |
-| `metodos_numericos.py` | Implementa los métodos de diferenciación. |
-| `ecuaciones_diferenciales.py` | Implementa Euler y RK4. |
-| `graficas.py` | Genera las gráficas comparativas. |
-| `requirements.txt` | Contiene las dependencias del proyecto. |
+| `main.py` | Ejecuta el programa principal y coordina el análisis. |
+| `datos.py` | Permite ingresar y validar las mediciones manualmente. |
+| `metodos_numericos.py` | Contiene las funciones de diferenciación numérica. |
+| `graficas.py` | Genera las gráficas del movimiento y compara los métodos. |
+| `requirements.txt` | Contiene las dependencias necesarias. |
+| `graficas/` | Almacena las imágenes generadas por el programa. |
+| `evidencias/` | Contiene las capturas de pantalla del proyecto. |
 
 ## Requisitos
 
@@ -66,10 +79,15 @@ Ingresar a la carpeta:
 cd Proyecto_Derivadas
 ```
 
-Crear y activar un entorno virtual:
+Crear un entorno virtual:
 
 ```bash
 python3 -m venv venv
+```
+
+Activar el entorno virtual en Linux o WSL Ubuntu:
+
+```bash
 source venv/bin/activate
 ```
 
@@ -81,26 +99,32 @@ pip install -r requirements.txt
 
 ## Ejecución
 
-Iniciar el simulador con:
+Iniciar el programa con:
 
 ```bash
 python main.py
 ```
 
-El programa solicitará los parámetros del vehículo. Se pueden ingresar valores personalizados o presionar Enter para utilizar los valores predeterminados.
+El programa solicitará la cantidad de mediciones y posteriormente los valores de tiempo y posición correspondientes.
+
+**Consideraciones para ingresar los datos:**
+
+- Se necesitan al menos cinco mediciones.
+- Los tiempos deben ser crecientes.
+- Los intervalos entre mediciones deben ser iguales.
+- El tiempo se expresa en segundos y la posición en metros.
 
 ## Resultados
 
-El programa muestra:
+El programa muestra las aproximaciones de velocidad obtenidas mediante los cinco métodos de diferenciación numérica.
 
-- Una tabla comparativa de los cinco métodos de diferenciación.
-- Una tabla de resultados de Euler y RK4.
-- Los errores respecto a las soluciones exactas.
-- Tres gráficas generadas automáticamente:
+También genera automáticamente las siguientes gráficas:
 
-1. `grafica_posicion.png`
-2. `grafica_velocidad.png`
-3. `grafica_errores.png`
+1. `grafica_posicion.png`: representa la posición del vehículo respecto al tiempo.
+2. `grafica_velocidad.png`: muestra las velocidades aproximadas mediante los cinco métodos.
+3. `comparacion_metodos.png`: compara los resultados de los cinco métodos en un mismo instante.
+
+Todas las gráficas se almacenan en la carpeta `graficas/`.
 
 ## Autor
 
@@ -109,4 +133,3 @@ Danielyalgo15
 ## Repositorio
 
 [Proyecto_Derivadas - GitHub](https://github.com/Danielyalgo15/Proyecto_Derivadas)
-# Proyecto_Derivadas
